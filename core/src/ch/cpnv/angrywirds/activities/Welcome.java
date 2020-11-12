@@ -34,7 +34,6 @@ public class Welcome extends Game implements InputProcessor {
     private String secondLangISO;
     private String firstLangDisplay;
     private String secondLangDisplay;
-
     private OrthographicCamera camera;
 
     public Welcome() {
