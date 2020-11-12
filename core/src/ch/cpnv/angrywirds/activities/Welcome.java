@@ -29,6 +29,7 @@ public class Welcome extends Game implements InputProcessor {
     private VocProvider vocSource = VocProvider.getInstance();
     private ArrayList<Button> leftButtons;
     private ArrayList<Button> rightButtons;
+    private Button startGame;
     private String firstLangISO;
     private String secondLangISO;
     private String firstLangDisplay;
@@ -40,10 +41,11 @@ public class Welcome extends Game implements InputProcessor {
 
         leftButtons = new ArrayList<Button>();
         rightButtons = new ArrayList<Button>();
+        startGame = new Button(new Vector2(650,600), "Jouer");
         firstLangISO = new String();
         secondLangISO = new String();
-        firstLangDisplay = new String("(choisir)");
-        secondLangDisplay = new String("(choisir)");
+        firstLangDisplay = "(choisir)";
+        secondLangDisplay = "(choisir)";
 
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -58,12 +60,11 @@ public class Welcome extends Game implements InputProcessor {
         title.getData().setScale(6);
 
         float pY = 450;
-        for(Language l : vocSource.getLanguages()){
-            leftButtons.add(new Button(new Vector2(150,pY),l.getDisplayName()));
-            rightButtons.add(new Button(new Vector2(650,pY),l.getDisplayName()));
+        for(Language l : vocSource.getLanguages()) {
+            leftButtons.add(new Button(new Vector2(150, pY), l.getDisplayName()));
+            rightButtons.add(new Button(new Vector2(650, pY), l.getDisplayName()));
             pY -= 100;
         }
-
 
         Gdx.input.setInputProcessor(this);
     }
@@ -83,19 +84,21 @@ public class Welcome extends Game implements InputProcessor {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.draw(background, 0, 0, camera.viewportWidth, camera.viewportHeight);
-        title.draw(batch,"Exercice de " + firstLangDisplay + " en " + secondLangDisplay,100,WORLD_HEIGHT - 200);
-        if(firstLangISO.equals("")) {
+        title.draw(batch,"Exercice de " + firstLangDisplay + " en " + secondLangDisplay,100,WORLD_HEIGHT - 100);
+        if(firstLangISO.isEmpty()) {
             for (Button bL : leftButtons) {
                 bL.draw(batch);
             }
         }
-        if(secondLangISO.equals("")) {
+        if(secondLangISO.isEmpty()) {
             for (Button bR : rightButtons) {
                 bR.draw(batch);
             }
         }
 
-        
+        if(!firstLangISO.isEmpty() && !secondLangISO.isEmpty()){
+            startGame.draw(batch);
+        }
         batch.end();
     }
 
@@ -118,29 +121,36 @@ public class Welcome extends Game implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 pt3 = camera.unproject(new Vector3(screenX, screenY, 0)); // Convert from screen coordinates to camera coordinate
 
-        for(Button b : leftButtons){
-            if(b.isTouched(new Vector2(pt3.x,pt3.y))){
-                for(Language l : vocSource.getLanguages()){
-                    if(l.getDisplayName() == b.getText()){
-                        firstLangISO = l.getISO_639_1();
-                        firstLangDisplay = l.getDisplayName();
+        if(firstLangISO.isEmpty()) {
+            for (Button b : leftButtons) {
+                if (b.isTouched(new Vector2(pt3.x, pt3.y))) {
+                    for (Language l : vocSource.getLanguages()) {
+                        if (l.getDisplayName() == b.getText()) {
+                            firstLangISO = l.getISO_639_1();
+                            firstLangDisplay = l.getDisplayName();
+                        }
                     }
                 }
             }
         }
-        for(Button b : rightButtons){
-            if(b.isTouched(new Vector2(pt3.x,pt3.y))){
-                for(Language l : vocSource.getLanguages()){
-                    if(l.getDisplayName() == b.getText()){
-                        secondLangISO = l.getISO_639_1();
-                        secondLangDisplay = l.getDisplayName();
+        if(secondLangISO.isEmpty()) {
+            for (Button b : rightButtons) {
+                if (b.isTouched(new Vector2(pt3.x, pt3.y))) {
+                    for (Language l : vocSource.getLanguages()) {
+                        if (l.getDisplayName() == b.getText()) {
+                            secondLangISO = l.getISO_639_1();
+                            secondLangDisplay = l.getDisplayName();
+                        }
                     }
                 }
             }
         }
 
-
-        //AngryWirds.pages.push(new Play());
+        if(!firstLangISO.isEmpty() && !secondLangISO.isEmpty()) {
+            if (startGame.isTouched(new Vector2(pt3.x, pt3.y))) {
+                AngryWirds.pages.push(new Play(firstLangISO,secondLangISO));
+            }
+        }
         return false;
     }
 

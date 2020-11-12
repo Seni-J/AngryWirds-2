@@ -22,12 +22,14 @@ public class Panel extends Sprite {
     private static final float TEXT_OFFSET_Y = 50;
     private BitmapFont font;
     private SemanticWord word;
+    private String lang;
 
-    public Panel (SemanticWord word)
+    public Panel (SemanticWord word, String lang)
     {
         super(new Texture(PICNAME));
         setBounds(POSX,POSY,WIDTH,HEIGHT);
         this.word = word;
+        this.lang = lang;
         font= new BitmapFont();
         font.setColor(Color.BLACK);
         font.getData().setScale(2);
@@ -36,7 +38,7 @@ public class Panel extends Sprite {
     public void draw(Batch batch)
     {
         super.draw(batch);
-        font.draw(batch, word.getValue("fr"), getX()+TEXT_OFFSET_X, getY()+TEXT_OFFSET_Y);
+        font.draw(batch, word.getValue(lang), getX()+TEXT_OFFSET_X, getY()+TEXT_OFFSET_Y);
     }
 
     public SemanticWord getWord() {

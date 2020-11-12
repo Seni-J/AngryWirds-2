@@ -20,8 +20,8 @@ public final class Pig extends TextualObject {
     private SemanticWord word; // The word with both languages
     private Bubble scream = null; // A bubble to show the pig's word to the player
 
-    public Pig(Vector2 position, SemanticWord word) {
-        super(position, WIDTH, HEIGHT, PICNAME, word.getValue("en"));
+    public Pig(Vector2 position, SemanticWord word, String lang) {
+        super(position, WIDTH, HEIGHT, PICNAME, word.getValue(lang));
         this.word = word;
     }
 

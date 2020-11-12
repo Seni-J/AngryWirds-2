@@ -61,12 +61,16 @@ public class Play extends Game implements InputProcessor {
     private RubberBand rubberBand1;
     private RubberBand rubberBand2;
     private BitmapFont scoreDisp;
+    private String firstLang;
+    private String secondLang;
 
     private OrthographicCamera camera;
 
-    public Play()
+    public Play(String firstLang, String secondLang)
     {
         alea = new Random();
+        this.firstLang = firstLang;
+        this.secondLang = secondLang;
 
         tweety = new Bird(new Vector2(AIMING_ZONE_X-Bird.WIDTH, AIMING_ZONE_Y-Bird.HEIGHT), new Vector2(0, 0));
         waspy = new Wasp(new Vector2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2), new Vector2(0, 0));
@@ -96,7 +100,7 @@ public class Play extends Game implements InputProcessor {
         int pigsLeft = 5;
         while (pigsLeft > 0) {
             try {
-                scene.dropElement(new Pig(new Vector2(alea.nextFloat() * WORLD_WIDTH, FLOOR_HEIGHT + BLOCK_SIZE), voc.pickAWord()));
+                scene.dropElement(new Pig(new Vector2(alea.nextFloat() * WORLD_WIDTH, FLOOR_HEIGHT + BLOCK_SIZE), voc.pickAWord(),secondLang));
                 pigsLeft--;
             } catch (ObjectOutOfBoundsException e) {
                 Gdx.app.log("ANGRY", "Pig out of bounds: " + e.getMessage());
@@ -114,7 +118,7 @@ public class Play extends Game implements InputProcessor {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
 
-        panel = new Panel(scene.pickAWord());
+        panel = new Panel(scene.pickAWord(),firstLang);
         scoreVal = 3; // allow a few mistakes before game over
         scoreDisp= new BitmapFont();
         scoreDisp.setColor(Color.BLACK);
