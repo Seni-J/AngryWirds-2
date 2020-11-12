@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class Button extends TextualObject{
 
-    private static final String PICNAME = "panel.png";
-    private static final int WIDTH = 260;
-    private static final int HEIGHT = 160;
-    private static final int TEXT_OFFSET_X = 40; // to place the text inside the bubble
-    private static final int TEXT_OFFSET_Y = 100;
+    private static final String PICNAME = "button.png";
+    private static final int WIDTH = 200;
+    private static final int HEIGHT = 50;
+    private static final int TEXT_OFFSET_X = 50; // to place the text inside the bubble
+    private static final int TEXT_OFFSET_Y = 50;
 
     private BitmapFont font;
 

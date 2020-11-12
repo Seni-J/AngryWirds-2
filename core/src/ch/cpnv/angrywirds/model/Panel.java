@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import ch.cpnv.angrywirds.AngryWirds;
 import ch.cpnv.angrywirds.activities.Play;
 import ch.cpnv.angrywirds.model.Data.SemanticWord;
-import ch.cpnv.angrywirds.model.Data.Word;
 
 public class Panel extends Sprite {
 

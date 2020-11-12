@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import ch.cpnv.angrywirds.AngryWirds;
 import ch.cpnv.angrywirds.activities.Play;
 import ch.cpnv.angrywirds.model.Data.SemanticWord;
-import ch.cpnv.angrywirds.model.Data.Word;
 
 /**
  * Contains all the static items to display in our world

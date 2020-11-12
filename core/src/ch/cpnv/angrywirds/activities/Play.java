@@ -16,6 +16,7 @@ import java.util.Random;
 
 import ch.cpnv.angrywirds.AngryWirds;
 import ch.cpnv.angrywirds.model.Bird;
+import ch.cpnv.angrywirds.model.Data.Language;
 import ch.cpnv.angrywirds.model.Data.Vocabulary;
 import ch.cpnv.angrywirds.model.ObjectOutOfBoundsException;
 import ch.cpnv.angrywirds.model.Panel;
@@ -70,7 +71,6 @@ public class Play extends Game implements InputProcessor {
         tweety = new Bird(new Vector2(AIMING_ZONE_X-Bird.WIDTH, AIMING_ZONE_Y-Bird.HEIGHT), new Vector2(0, 0));
         waspy = new Wasp(new Vector2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2), new Vector2(0, 0));
         voc = vocSource.pickAVoc();
-
         scene = new Scenery();
         //scene.addFloor();
         for (int i = 0; i < 150; i++) {
